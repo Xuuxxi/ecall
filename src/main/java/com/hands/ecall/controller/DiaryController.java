@@ -27,8 +27,6 @@ import java.util.List;
 public class DiaryController {
     @Resource
     private DiaryService diaryService;
-    @Resource
-    private CacheManager cacheManager;
 
     @PostMapping("/add")
     public R<String> add(Diary diary){
@@ -61,15 +59,6 @@ public class DiaryController {
     @GetMapping("/page/{page}/{pageSize}")
     public R<Page> page(@PathVariable int page, @PathVariable int pageSize, String title, LocalDateTime stTime,LocalDateTime edTime) {
         log.info("日记名字/时间分页查询, page = {}, pageSize = {}", page, pageSize);
-        Page pageInfo = new Page(page, pageSize);
-
-        LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
-        wrapper.like(title != null,Diary::getTitle,title);
-        wrapper.between(stTime != null && edTime != null,Diary::getCreateTime,stTime,edTime);
-        wrapper.orderByDesc(Diary::getUpdateTime);
-
-        diaryService.page(pageInfo,wrapper);
-
-        return R.success(pageInfo);
+        return R.success(diaryService.getPage(page,pageSize,title,stTime,edTime));
     }
 }
