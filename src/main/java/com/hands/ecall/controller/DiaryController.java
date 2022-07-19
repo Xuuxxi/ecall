@@ -50,17 +50,16 @@ public class DiaryController {
      * @param page
      * @param pageSize
      * @param title
-     * @param time
      * @return
      */
     @GetMapping("/page/{page}/{pageSize}")
-    public R<Page> page(@PathVariable int page, @PathVariable int pageSize, String title, LocalDateTime time) {
+    public R<Page> page(@PathVariable int page, @PathVariable int pageSize, String title, LocalDateTime stTime,LocalDateTime edTime) {
         log.info("日记名字/时间分页查询, page = {}, pageSize = {}", page, pageSize);
         Page pageInfo = new Page(page, pageSize);
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
         wrapper.like(title != null,Diary::getTitle,title);
-        wrapper.like(time != null,Diary::getCreateTime,time);
+        wrapper.between(stTime != null && edTime != null,Diary::getCreateTime,stTime,edTime);
         wrapper.orderByDesc(Diary::getUpdateTime);
 
         diaryService.page(pageInfo,wrapper);
