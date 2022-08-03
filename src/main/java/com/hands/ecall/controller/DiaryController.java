@@ -29,7 +29,7 @@ public class DiaryController {
     private DiaryService diaryService;
 
     @PostMapping("/add")
-    public R<String> add(Diary diary){
+    public R<String> add(@RequestBody Diary diary){
         log.info("add diary and userId = " + BaseContext.getCurrentId());
         diaryService.save(diary);
         return R.success("添加成功！");
