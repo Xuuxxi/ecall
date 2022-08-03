@@ -52,10 +52,12 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `password` varchar(255) DEFAULT '123456',
   `name` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `sex` int(11) NOT NULL,
+  `password` varchar(255) NOT NULL DEFAULT '123456',
+  `phone` varchar(255) DEFAULT NULL,
+  `sex` int(11) DEFAULT NULL,
+  `avatar` varchar(255) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
