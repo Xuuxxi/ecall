@@ -11,6 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.ArrayList;
 
 /**
+ * http://localhost:8080/swagger-ui.html
  * @Author: Xuuxxi
  * @Date: 2022/7/22
  */
