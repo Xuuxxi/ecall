@@ -93,4 +93,11 @@ public class UserController {
         userService.updateById(user);
         return R.success("update success...");
     }
+
+    @GetMapping("/{userId}")
+    public R<User> query(@PathVariable int userId){
+        log.info("query user...");
+        User user = userService.getById(userId);
+        return R.success(user);
+    }
 }
