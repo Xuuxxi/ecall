@@ -95,7 +95,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public R<User> query(@PathVariable int userId){
+    public R<User> query(@PathVariable Long userId){
         log.info("query user...");
         User user = userService.getById(userId);
         return R.success(user);

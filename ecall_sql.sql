@@ -23,8 +23,8 @@ DROP TABLE IF EXISTS `diary`;
 CREATE TABLE `diary` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `content` varchar(255) DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -64,6 +64,9 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
 
 /*Data for the table `user` */
+
+insert  into `user`(`id`,`name`,`password`,`phone`,`sex`,`avatar`,`status`,`create_time`,`update_time`) values 
+(1554752338949652482,'Xuuxxi','e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,0,'2022-08-03 16:53:38','2022-08-03 16:53:38');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -14,4 +14,5 @@ import java.time.LocalTime;
  */
 public interface DiaryService extends IService<Diary> {
     public Page getPage(int page, int pageSize, String title, LocalDateTime stTime, LocalDateTime edTime);
+    public Page getPage(int page, int pageSize, Long userId, LocalDateTime stTime, LocalDateTime edTime);
 }

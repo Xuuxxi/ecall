@@ -32,4 +32,17 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
 
         return pageInfo;
     }
+
+    public Page getPage(int page, int pageSize, Long userId, LocalDateTime stTime, LocalDateTime edTime) {
+        Page pageInfo = new Page(page, pageSize);
+
+        LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Diary::getUser_id,userId);
+        wrapper.between(stTime != null && edTime != null,Diary::getCreateTime,stTime,edTime);
+        wrapper.orderByDesc(Diary::getUpdateTime);
+
+        this.page(pageInfo,wrapper);
+
+        return pageInfo;
+    }
 }
