@@ -1,7 +1,5 @@
 package com.hands.ecall.controller;
 
-
-import com.alibaba.fastjson.JSON;
 import com.hands.ecall.common.R;
 import com.hands.ecall.service.SocketService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,12 +36,12 @@ public class SseController {
 
     public static Map<Long , SseEmitter> sseEmitterMap = new ConcurrentHashMap<>();
 
-//    连接SSE
+    //    连接SSE
     @GetMapping("/connect")
     public  SseEmitter connect(@PathVariable("userId") Long userId) throws IOException {
         log.info("SSE: #connect : "+userId);
 
-        SseEmitter sseEmitter = new SseEmitter();
+        SseEmitter sseEmitter = new SseEmitter(0L);
         sseControllerMap.put(userId,this);
         sseEmitterMap.put(userId,sseEmitter);
         log.info("SSE total: "+sseEmitterMap.size());
@@ -71,31 +69,31 @@ public class SseController {
     }
 
 
-//      检查未读消息
+    //      检查未读消息
     //  返回未读用户列表
     @Async
     @GetMapping("/check")
     public void check(@PathVariable("userId") Long userId) throws IOException{
         List<Long> targetList = socketService.check(userId);
-        sseEmitterMap.get(userId).send(JSON.toJSONString(R.success(targetList)));
+        sseEmitterMap.get(userId).send(R.success(targetList));
     }
 
 
-//    获取与原用户建立过会话的目标用户列表
+    //    获取与原用户建立过会话的目标用户列表
     @Async
     @GetMapping("/target")
     public void getAllTarget(@PathVariable("userId") Long userId) throws IOException{
         List<Long> targetList = socketService.target(userId);
-        sseEmitterMap.get(userId).send(JSON.toJSONString(R.success(targetList)));
+        sseEmitterMap.get(userId).send(R.success(targetList));
     }
 
-//    有用户发送消息时目标用户需要受到提醒时调用
+    //    有用户发送消息时目标用户需要受到提醒时调用
     //在WebSocketController中使用
     @Async
     public void notice(Long self,Long target) throws IOException{
         List<Long> targetList = new ArrayList<>();
         targetList.add(self);
-        sseEmitterMap.get(target).send(JSON.toJSONString(R.success(targetList)));
+        sseEmitterMap.get(target).send(R.success(targetList));
     }
 
 }
