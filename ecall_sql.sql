@@ -52,8 +52,8 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL DEFAULT '123456',
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `sex` int(11) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
@@ -64,9 +64,6 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
 
 /*Data for the table `user` */
-
-insert  into `user`(`id`,`name`,`password`,`phone`,`sex`,`avatar`,`status`,`create_time`,`update_time`) values 
-(1554752338949652482,'Xuuxxi','e10adc3949ba59abbe56e057f20f883e',NULL,NULL,NULL,0,'2022-08-03 16:53:38','2022-08-03 16:53:38');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

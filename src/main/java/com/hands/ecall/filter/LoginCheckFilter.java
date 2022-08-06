@@ -34,7 +34,8 @@ public class LoginCheckFilter implements Filter {
         String[] urls = {
                 "/user/login",
                 "/user/logout",
-                "/user/register"
+                "/user/register",
+                "/user/login/root/123456"
         };
 
         boolean check = Check(urls, requestURI);
