@@ -18,15 +18,13 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("user")
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
-    private String name;
+    private String username;
 
-    @TableField(value = "password")
     private String password;
 
     private String phone;
@@ -34,8 +32,6 @@ public class User implements Serializable {
     private Integer sex;
 
     private String avatar;
-
-    private Integer status;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

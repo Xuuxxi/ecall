@@ -10,4 +10,7 @@ import com.hands.ecall.pojo.User;
  * @Date: 2022/7/18
  */
 public interface UserService extends IService<User> {
+    public String login(User user);
+    public User getInfo();
+    public String register(User user);
 }

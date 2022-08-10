@@ -26,5 +26,6 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
+      #//雪花算法生成 id
       id-type: ASSIGN_ID
 
