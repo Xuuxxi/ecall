@@ -5,13 +5,17 @@ import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
 import com.hands.ecall.pojo.User;
 import com.hands.ecall.service.UserService;
+import com.hands.ecall.service.impl.utils.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: Xuuxxi

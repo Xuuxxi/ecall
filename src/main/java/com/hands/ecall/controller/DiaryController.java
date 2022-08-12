@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
+import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.pojo.Diary;
 import com.hands.ecall.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
@@ -69,4 +70,17 @@ public class DiaryController {
         return R.success(diaryService.getPage(page, pageSize, userId, stTime, edTime));
     }
 
+    @GetMapping("/match/{diaryId}")
+    public R<DiaryDto> getDto(@PathVariable Long diaryId){
+        log.info("match diary...");
+        DiaryDto dto = diaryService.getDto(diaryId);
+        return R.success(dto);
+    }
+
+    @GetMapping("/similar/{diaryId}")
+    public R<DiaryDto> getTheSame(@PathVariable Long diaryId){
+        log.info("get the same diary");
+        DiaryDto theSame = diaryService.getTheSame(diaryId);
+        return R.success(theSame);
+    }
 }

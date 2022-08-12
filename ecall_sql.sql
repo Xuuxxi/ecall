@@ -25,6 +25,7 @@ CREATE TABLE `diary` (
   `user_id` bigint(20) NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
   `content` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `mood` decimal(10,2) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -52,18 +53,20 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `sex` int(11) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
 
 /*Data for the table `user` */
+
+insert  into `user`(`id`,`username`,`password`,`phone`,`sex`,`avatar`,`create_time`,`update_time`) values 
+(1557299366464430081,'root','$2a$10$TZUdNJexMetiC/oEcE.Zr.JU11ITol9zRnQ4OsNBQ9I1l.riJ1t6i',NULL,NULL,NULL,'2022-08-10 17:34:37','2022-08-10 17:34:37');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

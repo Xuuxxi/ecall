@@ -23,11 +23,13 @@ public class Diary implements Serializable {
 
     private Long id;
 
-    private Long user_id;
+    private Long userId;
 
     private String title;
 
     private String content;
+
+    private Double mood;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
