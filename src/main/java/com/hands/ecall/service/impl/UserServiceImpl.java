@@ -7,6 +7,7 @@ import com.hands.ecall.mapper.UserMapper;
 import com.hands.ecall.pojo.User;
 import com.hands.ecall.service.UserService;
 import com.hands.ecall.service.impl.utils.UserDetailsImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  * @Date: 2022/7/18
  */
 @Service
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Resource
     private AuthenticationManager am;
@@ -36,12 +38,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public String login(User user) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-
-        Authentication authenticate = am.authenticate(usernamePasswordAuthenticationToken);
+        Authentication authenticate = am.authenticate(usernamePasswordAuthenticationToken);;
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
 
         User myUser = loginUser.getUser();
         String jwt = JwtUtil.createJWT(myUser.getId().toString());
+
+        change(myUser.getId(),"online");
 
         return jwt;
     }
@@ -67,5 +70,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userMapper.insert(user);
 
         return "register success";
+    }
+
+    @Override
+    public void change(Long userId,String status) {
+        User user = userMapper.selectById(userId);
+        if(status == "online") user.setOnline(1);
+        else user.setOnline(0);
+
+        userMapper.updateById(user);
     }
 }

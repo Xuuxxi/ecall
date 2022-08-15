@@ -24,7 +24,7 @@ CREATE TABLE `diary` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `title` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
-  `content` varchar(255) CHARACTER SET utf8mb4 DEFAULT NULL,
+  `content` varchar(10000) CHARACTER SET utf8mb4 DEFAULT NULL,
   `mood` decimal(10,2) DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
@@ -32,6 +32,11 @@ CREATE TABLE `diary` (
 ) ENGINE=InnoDB DEFAULT CHARSET=armscii8;
 
 /*Data for the table `diary` */
+
+insert  into `diary`(`id`,`user_id`,`title`,`content`,`mood`,`update_time`,`create_time`) values 
+(1557877997737607169,1557299366464430081,'test1','string',10.00,'2022-08-12 07:53:53','2022-08-12 07:53:53'),
+(1557878078020780033,1557299366464430081,'test2','string',9.00,'2022-08-12 07:54:12','2022-08-12 07:54:12'),
+(1557884229592670209,1557877150421090305,'test3','string',9.00,'2022-08-12 08:18:39','2022-08-12 08:18:39');
 
 /*Table structure for table `socket_data` */
 
@@ -58,6 +63,7 @@ CREATE TABLE `user` (
   `phone` varchar(255) DEFAULT NULL,
   `sex` int(11) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
+  `online` int(11) DEFAULT '0',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -65,8 +71,8 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`username`,`password`,`phone`,`sex`,`avatar`,`create_time`,`update_time`) values 
-(1557299366464430081,'root','$2a$10$TZUdNJexMetiC/oEcE.Zr.JU11ITol9zRnQ4OsNBQ9I1l.riJ1t6i',NULL,NULL,NULL,'2022-08-10 17:34:37','2022-08-10 17:34:37');
+insert  into `user`(`id`,`username`,`password`,`phone`,`sex`,`avatar`,`online`,`create_time`,`update_time`) values 
+(1559067953873092610,'123','$2a$10$ThS3/FKlEew5RZgeF3flPePpatYK5j6aiXYA0aqK/PJqqjNJvmp8.',NULL,NULL,NULL,0,'2022-08-15 14:42:21','2022-08-15 15:03:12');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

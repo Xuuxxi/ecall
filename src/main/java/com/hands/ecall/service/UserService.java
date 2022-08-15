@@ -16,4 +16,6 @@ public interface UserService extends IService<User> {
     public String login(User user);
     public User getInfo();
     public String register(User user);
+
+    public void change(Long userId,String status);
 }

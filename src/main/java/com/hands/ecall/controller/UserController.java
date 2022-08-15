@@ -1,21 +1,12 @@
 package com.hands.ecall.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
 import com.hands.ecall.pojo.User;
 import com.hands.ecall.service.UserService;
-import com.hands.ecall.service.impl.utils.UserDetailsImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
-import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @Author: Xuuxxi
@@ -67,5 +58,12 @@ public class UserController {
         log.info("query user...");
         User user = userService.getById(userId);
         return R.success(user);
+    }
+
+    @GetMapping("/change/{userId}/{status}")
+    public R<String> change(@PathVariable Long userId,@PathVariable String status){
+        log.info("user online status change");
+        userService.change(userId,status);
+        return R.success("user status change success : " + status);
     }
 }
