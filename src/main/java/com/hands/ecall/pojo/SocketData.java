@@ -32,7 +32,4 @@ public class SocketData implements Serializable {
 
     @TableField("is_read")
     private Integer isRead;
-
-
-
 }

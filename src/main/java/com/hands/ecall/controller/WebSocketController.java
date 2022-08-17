@@ -38,8 +38,10 @@ public class WebSocketController {
     @Autowired
     UserService userService;
 
+    //线程安全的哈希表
     public static Map<Long,WebSocketController> sockets = new ConcurrentHashMap<>();
 
+    //线程安全的哈希表
     public static Map<Long, Session> sessions = new ConcurrentHashMap<>();
 
     private Session session;
