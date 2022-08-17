@@ -40,12 +40,6 @@ public class UserController {
         return R.success(info);
     }
 
-    /**
-     * 更新用户接口
-     *
-     * @param user
-     * @return
-     */
     @PutMapping
     public R<String> update(@RequestBody User user) {
         log.info("update user...");
@@ -58,12 +52,5 @@ public class UserController {
         log.info("query user...");
         User user = userService.getById(userId);
         return R.success(user);
-    }
-
-    @GetMapping("/change/{userId}/{status}")
-    public R<String> change(@PathVariable Long userId,@PathVariable String status){
-        log.info("user online status change");
-        userService.change(userId,status);
-        return R.success("user status change success : " + status);
     }
 }

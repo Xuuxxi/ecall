@@ -1,6 +1,6 @@
 package com.hands.ecall.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
@@ -8,10 +8,6 @@ import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.pojo.Diary;
 import com.hands.ecall.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -50,14 +46,6 @@ public class DiaryController {
         return R.success("更新成功！");
     }
 
-    /**
-     * 年月日查询？？
-     *
-     * @param page
-     * @param pageSize
-     * @param title
-     * @return
-     */
     @GetMapping("/page/{page}/{pageSize}")
     public R<Page> pageByName(@PathVariable int page, @PathVariable int pageSize, String title, LocalDateTime stTime, LocalDateTime edTime) {
         log.info("日记名字/时间分页查询, page = {}, pageSize = {}", page, pageSize);

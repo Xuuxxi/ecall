@@ -33,9 +33,6 @@ public class User implements Serializable {
 
     private String avatar;
 
-    //0为不在线 1为在线
-    private Integer online;
-
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 

@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -29,7 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/swagger-ui.html",
             "/webjars/**",
             "/user/login",
-            "/user/register"
+            "/user/register",
+            "/websocket/**"
     };
 
     @Bean
@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
+    //基础配置
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -57,8 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //放行websocket的相关操作
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/websocket/**");
-    }
+    //可能不需要？
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/websocket/**");
+//    }
 }
