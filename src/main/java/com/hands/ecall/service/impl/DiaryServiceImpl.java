@@ -117,7 +117,7 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = loginUser.getUser().getId();
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime pre = now.plusDays(-7L);
+        LocalDateTime pre = now.plusDays(-6L);
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Diary::getUserId,userId);
