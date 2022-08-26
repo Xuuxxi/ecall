@@ -6,8 +6,10 @@ import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
 import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.pojo.Diary;
+import com.hands.ecall.pojo.Match;
 import com.hands.ecall.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -58,17 +60,38 @@ public class DiaryController {
         return R.success(diaryService.getPage(page, pageSize, userId, stTime, edTime));
     }
 
-    @GetMapping("/match/{diaryId}")
-    public R<DiaryDto> getDto(@PathVariable Long diaryId){
-        log.info("match diary...");
-        DiaryDto dto = diaryService.getDto(diaryId);
-        return R.success(dto);
-    }
+//    @GetMapping("/match/{diaryId}")
+//    public R<DiaryDto> getDto(@PathVariable Long diaryId){
+//        log.info("match diary...");
+//        DiaryDto dto = diaryService.getDto(diaryId);
+//        return R.success(dto);
+//    }
 
     @GetMapping("/similar/{diaryId}")
     public R<DiaryDto> getTheSame(@PathVariable Long diaryId){
         log.info("get the same diary");
         DiaryDto theSame = diaryService.getTheSame(diaryId);
         return R.success(theSame);
+    }
+
+    @GetMapping("/getWekInfo")
+    public R<List> getWekInfo(){
+        log.info("get week info");
+        List<Double> wekInfo = diaryService.getWekInfo();
+        return R.success(wekInfo);
+    }
+
+    @GetMapping("/getUserMatch/{userId}")
+    public R<List> getUserMatch(@PathVariable Long userId){
+        log.info("get user match");
+        List<Match> userMatch = diaryService.getUserMatch(userId);
+        return R.success(userMatch);
+    }
+
+    @GetMapping("/getSimilar/{diaryId}")
+    public R<Diary> getSimilar(@PathVariable Long diaryId){
+        log.info("find the most similar one");
+        Diary similar = diaryService.getSimilar(diaryId);
+        return R.success(similar);
     }
 }

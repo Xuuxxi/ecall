@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DiaryDto extends Diary {
-    private Long matchId;
+    private Long matchUserId;
 
-    private Double rate;
+    private Long matchDiaryId;
+
+    private Double matchMood;
 }

@@ -38,6 +38,19 @@ insert  into `diary`(`id`,`user_id`,`title`,`content`,`mood`,`update_time`,`crea
 (1557878078020780033,1557299366464430081,'test2','string',9.00,'2022-08-12 07:54:12','2022-08-12 07:54:12'),
 (1557884229592670209,1557877150421090305,'test3','string',9.00,'2022-08-12 08:18:39','2022-08-12 08:18:39');
 
+/*Table structure for table `match` */
+
+DROP TABLE IF EXISTS `match`;
+
+CREATE TABLE `match` (
+  `id` bigint(20) NOT NULL,
+  `user_id` bigint(20) DEFAULT NULL,
+  `diary_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `match` */
+
 /*Table structure for table `socket_data` */
 
 DROP TABLE IF EXISTS `socket_data`;
