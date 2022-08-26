@@ -1,34 +1,27 @@
 package com.hands.ecall.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.fasterxml.jackson.databind.util.BeanUtil;
 import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.mapper.DiaryMapper;
-import com.hands.ecall.mapper.MatchMapper;
-import com.hands.ecall.mapper.UserMapper;
 import com.hands.ecall.pojo.Diary;
-import com.hands.ecall.pojo.Match;
+import com.hands.ecall.pojo.UserMatch;
 import com.hands.ecall.service.DiaryService;
+import com.hands.ecall.service.MatchService;
 import com.hands.ecall.service.impl.utils.UserDetailsImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 /**
  * @Author: Xuuxxi
@@ -37,7 +30,7 @@ import java.util.stream.IntStream;
 @Service
 public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements DiaryService {
     @Resource
-    MatchMapper matchMapper;
+    private MatchService matchService;
 
     @Override
     public Page getPage(int page, int pageSize, String title, LocalDateTime stTime, LocalDateTime edTime) {
@@ -85,43 +78,46 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
 //        return diaryDto;
 //    }
 
+    //匹配一篇日记返回日记ID和对应用户ID
+    @Transactional
     public DiaryDto getTheSame(Long diaryId){
         DiaryDto diaryDto = new DiaryDto();
         Diary curDiary = this.getById(diaryId);
         Double curMood = curDiary.getMood();
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
-        wrapper.ne(Diary::getId,diaryId);
-        wrapper.between(Diary::getMood,0,curMood);
+        wrapper.ne(Diary::getUserId,curDiary.getUserId());
+        wrapper.between(Diary::getMood,0.0,curMood);
         wrapper.orderByDesc(Diary::getMood);
         List<Diary> diaryList = this.list(wrapper);
 
-        if(diaryList != null){
-            Diary diary = diaryList.get(0);
+        if(diaryList.size() > 0){
+            Diary diary = diaryList.get(diaryList.size() - 1);
             BeanUtils.copyProperties(curDiary,diaryDto);
             diaryDto.setMatchUserId(diary.getUserId());
             diaryDto.setMatchDiaryId(diary.getId());
             diaryDto.setMatchMood(diary.getMood());
 
-            Match match = new Match();
+            UserMatch match = new UserMatch();
             match.setDiaryId(curDiary.getId());
             match.setUserId(diary.getUserId());
-            matchMapper.insert(match);
+            matchService.save(match);
         }
 
         return diaryDto;
     }
 
+    //查找从今天开始过去七天的日记情绪和总和
     public List<Double> getWekInfo(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl loginUser = (UserDetailsImpl) authentication.getPrincipal();
         Long userId = loginUser.getUser().getId();
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime pre = now.plusDays(-6L);
+        LocalDateTime pre = now.plusDays(-7L);
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Diary::getUserId,userId);
-        wrapper.between(Diary::getCreateTime,now,pre);
+        wrapper.between(Diary::getCreateTime,pre,now);
 
         List<Diary> list = this.list(wrapper);
 
@@ -136,13 +132,15 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
         return new ArrayList<>(Arrays.asList(tmp));
     }
 
+    //查找当前用户匹配过的日记
     @Override
-    public List<Match> getUserMatch(Long userId) {
-        QueryWrapper<Match> wrapper = new QueryWrapper<>();
-        wrapper.eq("userId",userId);
-        return matchMapper.selectList(wrapper);
+    public List<UserMatch> getUserMatch(Long userId) {
+        QueryWrapper<UserMatch> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id",userId);
+        return matchService.list(wrapper);
     }
 
+    //根据diaryId查找当前用户最匹配的日记
     public Diary getSimilar(Long diaryId) {
         UserDetailsImpl loginUser = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Long userId = loginUser.getUser().getId();
@@ -150,6 +148,7 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Diary::getUserId,userId);
+        wrapper.ne(Diary::getUserId,curDiary.getUserId());
         wrapper.orderByDesc(Diary::getMood);
         List<Diary> list = this.list(wrapper);
 

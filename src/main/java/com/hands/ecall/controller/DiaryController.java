@@ -6,10 +6,9 @@ import com.hands.ecall.common.BaseContext;
 import com.hands.ecall.common.R;
 import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.pojo.Diary;
-import com.hands.ecall.pojo.Match;
+import com.hands.ecall.pojo.UserMatch;
 import com.hands.ecall.service.DiaryService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -84,7 +83,7 @@ public class DiaryController {
     @GetMapping("/getUserMatch/{userId}")
     public R<List> getUserMatch(@PathVariable Long userId){
         log.info("get user match");
-        List<Match> userMatch = diaryService.getUserMatch(userId);
+        List<UserMatch> userMatch = diaryService.getUserMatch(userId);
         return R.success(userMatch);
     }
 

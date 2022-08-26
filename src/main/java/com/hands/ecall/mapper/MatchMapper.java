@@ -1,7 +1,7 @@
 package com.hands.ecall.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.hands.ecall.pojo.Match;
+import com.hands.ecall.pojo.UserMatch;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -10,5 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 
 @Mapper
-public interface MatchMapper extends BaseMapper<Match> {
+public interface MatchMapper extends BaseMapper<UserMatch> {
 }

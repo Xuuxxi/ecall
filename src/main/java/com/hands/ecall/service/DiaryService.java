@@ -4,11 +4,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hands.ecall.dto.DiaryDto;
 import com.hands.ecall.pojo.Diary;
-import com.hands.ecall.pojo.Match;
+import com.hands.ecall.pojo.UserMatch;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ public interface DiaryService extends IService<Diary> {
 
     public List<Double> getWekInfo();
 
-    public List<Match> getUserMatch(Long userId);
+    public List<UserMatch> getUserMatch(Long userId);
 
     public Diary getSimilar(Long diaryId);
 }
