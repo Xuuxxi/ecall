@@ -29,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/webjars/**",
             "/user/login",
             "/user/register",
-            "/websocket/**"
+            "/websocket/**",
+            "/sse/**"
     };
 
     @Bean
