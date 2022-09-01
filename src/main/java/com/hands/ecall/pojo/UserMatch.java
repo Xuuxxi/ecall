@@ -25,4 +25,6 @@ public class UserMatch implements Serializable {
     private Long diaryId;
 
     private Long matchUser;
+
+    private Long matchDiary;
 }

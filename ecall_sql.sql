@@ -34,8 +34,11 @@ CREATE TABLE `diary` (
 /*Data for the table `diary` */
 
 insert  into `diary`(`id`,`user_id`,`title`,`content`,`mood`,`update_time`,`create_time`) values 
-(1,1,'1','1',2.00,'2022-08-28 20:04:19','2022-08-28 20:04:25'),
-(2,2,'2','2',3.00,'2022-08-28 20:04:44','2022-08-28 20:04:46');
+(1,1,'1','1',4.00,'2022-08-28 20:04:19','2022-08-28 20:04:25'),
+(2,2,'2','2',3.00,'2022-08-28 20:04:44','2022-08-28 20:04:46'),
+(3,3,'2','3',2.00,NULL,NULL),
+(4,4,'4','4',1.00,NULL,NULL),
+(5,5,'5','5',4.00,NULL,NULL);
 
 /*Table structure for table `socket_data` */
 
@@ -62,7 +65,6 @@ CREATE TABLE `user` (
   `phone` varchar(255) DEFAULT NULL,
   `sex` int(11) DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `online` int(11) DEFAULT '0',
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -70,10 +72,10 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`username`,`password`,`phone`,`sex`,`avatar`,`online`,`create_time`,`update_time`) values 
-(1,'a','1',NULL,NULL,NULL,0,NULL,NULL),
-(2,'b','1',NULL,NULL,NULL,0,NULL,NULL),
-(3,'c','1',NULL,NULL,NULL,0,NULL,NULL);
+insert  into `user`(`id`,`username`,`password`,`phone`,`sex`,`avatar`,`create_time`,`update_time`) values 
+(1,'a','$2a$10$CUrfpKP.Y5lEr1FnwlPMp.8iyKB.5ljI6wefHO4/Do2p65.diH8Me',NULL,NULL,NULL,'2022-09-01 20:46:38','2022-09-01 20:46:38'),
+(2,'b','1',NULL,NULL,NULL,NULL,NULL),
+(3,'c','1',NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `user_match` */
 
@@ -84,15 +86,16 @@ CREATE TABLE `user_match` (
   `user_id` bigint(20) DEFAULT NULL,
   `diary_id` bigint(20) DEFAULT NULL,
   `match_user` bigint(20) DEFAULT NULL,
+  `match_diary` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_match` */
 
-insert  into `user_match`(`id`,`user_id`,`diary_id`,`match_user`) values 
-(1,1,2,NULL),
-(2,2,3,NULL),
-(3,3,1,NULL);
+insert  into `user_match`(`id`,`user_id`,`diary_id`,`match_user`,`match_diary`) values 
+(1,1,2,NULL,NULL),
+(2,2,3,NULL,NULL),
+(3,3,1,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

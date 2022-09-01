@@ -87,8 +87,9 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
 
         LambdaQueryWrapper<Diary> wrapper = new LambdaQueryWrapper<>();
         wrapper.ne(Diary::getUserId,curDiary.getUserId());
+        //0 ~ curMod
         wrapper.between(Diary::getMood,0.0,curMood);
-        wrapper.orderByDesc(Diary::getMood);
+        wrapper.orderByAsc(Diary::getMood);
         List<Diary> diaryList = this.list(wrapper);
 
         if(diaryList.size() > 0){
@@ -98,17 +99,12 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
             diaryDto.setMatchDiaryId(diary.getId());
             diaryDto.setMatchMood(diary.getMood());
 
-            UserMatch match1 = new UserMatch();
-            match1.setDiaryId(curDiary.getId());
-            match1.setUserId(diary.getUserId());
-            match1.setMatchUser(curDiary.getUserId());
-            matchService.save(match1);
-
-            UserMatch match2 = new UserMatch();
-            match2.setDiaryId(curDiary.getUserId());
-            match2.setUserId(diary.getId());
-            match2.setMatchUser(diary.getUserId());
-            matchService.save(match2);
+            //匹配记录放入
+            UserMatch matchInfo = new UserMatch();
+            matchInfo.setUserId(curDiary.getUserId());
+            matchInfo.setDiaryId(curDiary.getId());
+            matchInfo.setMatchUser(diary.getUserId());
+            matchInfo.setMatchDiary(diary.getId());
         }
 
         return diaryDto;
