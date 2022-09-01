@@ -105,6 +105,8 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
             matchInfo.setDiaryId(curDiary.getId());
             matchInfo.setMatchUser(diary.getUserId());
             matchInfo.setMatchDiary(diary.getId());
+
+            matchService.save(matchInfo);
         }
 
         return diaryDto;
