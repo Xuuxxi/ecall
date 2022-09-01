@@ -91,6 +91,14 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
         wrapper.between(Diary::getMood,0.0,curMood);
         wrapper.orderByAsc(Diary::getMood);
         List<Diary> diaryList = this.list(wrapper);
+        if(diaryList.size() == 0){
+            wrapper = new LambdaQueryWrapper<>();
+            wrapper.ne(Diary::getUserId,curDiary.getUserId());
+            //curMod ~ 10.00
+            wrapper.between(Diary::getMood,curMood,10.0);
+            wrapper.orderByDesc(Diary::getMood);
+            diaryList = this.list(wrapper);
+        }
 
         if(diaryList.size() > 0){
             Diary diary = diaryList.get(diaryList.size() - 1);
