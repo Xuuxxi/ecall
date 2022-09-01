@@ -101,11 +101,13 @@ public class DiaryServiceImpl extends ServiceImpl<DiaryMapper, Diary> implements
             UserMatch match1 = new UserMatch();
             match1.setDiaryId(curDiary.getId());
             match1.setUserId(diary.getUserId());
+            match1.setMatchUser(curDiary.getUserId());
             matchService.save(match1);
 
             UserMatch match2 = new UserMatch();
             match2.setDiaryId(curDiary.getUserId());
             match2.setUserId(diary.getId());
+            match2.setMatchUser(diary.getUserId());
             matchService.save(match2);
         }
 

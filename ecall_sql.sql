@@ -83,15 +83,16 @@ CREATE TABLE `user_match` (
   `id` bigint(20) NOT NULL,
   `user_id` bigint(20) DEFAULT NULL,
   `diary_id` bigint(20) DEFAULT NULL,
+  `match_user` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `user_match` */
 
-insert  into `user_match`(`id`,`user_id`,`diary_id`) values 
-(1,1,2),
-(2,2,3),
-(3,3,1);
+insert  into `user_match`(`id`,`user_id`,`diary_id`,`match_user`) values 
+(1,1,2,NULL),
+(2,2,3,NULL),
+(3,3,1,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
